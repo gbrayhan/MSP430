@@ -1,0 +1,56 @@
+#include "msp430g2131.h"                     ; #define controlled include file
+
+        NAME    main                    ; module name
+
+        PUBLIC  main                    ; make the main label vissible
+                                    
+        ORG     0F800h
+RESET   MOV     #0240h, SP        ; set up stack
+
+main:	MOV.W   #WDTPW+WDTHOLD,&WDTCTL  ; Stop watchdog timer
+;----------------------------------------------------------------------
+        MOV.B   &CALBC1_1MHZ,&BCSCTL1
+        MOV.B   &CALDCO_1MHZ,&DCOCTL 
+
+P1BIOS  CLR.B &P1SEL
+        MOV.B #11111100B,&P1DIR
+        MOV.B #BIT0+BIT1,P1OUT
+        MOV.B #BIT0+BIT1,P1REN
+	MOV.B #BIT0+BIT1,P1IE
+        MOV.B #BIT0+BIT1,P1IES
+        CLR.B &P1IFG
+        
+;----------------------------------------------------------------------
+P2BIOS  CLR.B &P2SEL
+        MOV.B #0FFh,&P2DIR
+        CLR.B &P2OUT
+        MOV.B #GIE + CPUOFF,SR
+       
+;----------------------------------------------------------------------
+BOTON   CALL #T30ms
+        BIT.B #BIT0,&P1IFG
+        JNZ ENCE
+        BIT.B #BIT1,&P1IFG
+        JNZ APAG
+        CLR.B &P1IFG
+        RETI
+ENCE    BIS.B #BIT2,&P1OUT
+        BIC.B #BIT0,&P1IFG
+        RETI
+APAG    BIC.B #BIT2,&P1OUT
+        BIC.B #BIT1,&P1IFG
+        RETI        
+T30ms   MOV #7500,R4
+OTRO    DEC R4
+        NOP
+        JNZ OTRO
+        RET
+        
+        ORG 0FFFEh
+        DW RESET
+	ORG 0FFE4H
+	DW BOTON  
+   
+	END main
+        END
+        
