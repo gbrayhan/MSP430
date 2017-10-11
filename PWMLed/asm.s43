@@ -1,7 +1,6 @@
 ;-------------------------------------------------- 
-;Controlar Servomotor con PWM
+;Controlar Brillo de LED con PWM
 ;gbrayhan@gmail.com
-
 ;-------------------------------------------------- 
 #include "msp430g2553.h"
 #define x R4
@@ -35,97 +34,50 @@ Compar  CMP.B #0,x
         JEQ Apaga
         
         CMP.B #1,x
-        JEQ MN90G
+        JEQ T25P
         
         CMP.B #2,x
-        JEQ MN45G
+        JEQ T50P
         
         CMP.B #3,x
-        JEQ M0G
-        
-        CMP.B #4,x
-        JEQ M45G
-        
-        CMP.B #5,x
-        JEQ M90G
-        
-        BIS.B #BIT6,&P1OUT; x=6
+        JEQ T75P
+               
+        BIS.B #BIT6,&P1OUT; x=4 100% del brillo
         JMP Compar
 ;-------------------------------------------------- 
-Apaga   BIC.B #BIT6,&P1OUT
+Apaga   BIC.B #BIT6,&P1OUT ; 0% del Brillo del Led (Apagado) 
         JMP Compar
 ;--------------------------------------------------         
-MN90G   BIS.B #BIT6,&P1OUT
+T25P    BIS.B #BIT6,&P1OUT
         CALL #Tp5ms
         BIC.B #BIT6,&P1OUT
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
+        CALL #Tp5ms
+        CALL #Tp5ms
         CALL #Tp5ms
         JMP Compar
 ;--------------------------------------------------        
-MN45G  BIS.B #BIT6,&P1OUT
-        CALL #T1ms
+T50P    BIS.B #BIT6,&P1OUT
+        CALL #Tp5ms
+        CALL #Tp5ms
         BIC.B #BIT6,&P1OUT
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms            
+        CALL #Tp5ms
+        CALL #Tp5ms
         JMP Compar        
 ;-------------------------------------------------- 
-M0G   BIS.B #BIT6,&P1OUT
-        CALL #T1ms
+T75P    BIS.B #BIT6,&P1OUT
+        CALL #Tp5ms
+        CALL #Tp5ms
         CALL #Tp5ms
         BIC.B #BIT6,&P1OUT
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
         CALL #Tp5ms
-        JMP Compar         
-;--------------------------------------------------
-M45G    BIS.B #BIT6,&P1OUT
-        CALL #T1ms
-        CALL #T1ms
-        BIC.B #BIT6,&P1OUT
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
-        JMP Compar         
-;--------------------------------------------------       
-M90G    BIS.B #BIT6,&P1OUT
-        CALL #T1ms
-        CALL #T1ms
-        CALL #Tp5ms
-        BIC.B #BIT6,&P1OUT
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T5ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #Tp5ms
-        JMP Compar         
+        JMP Compar              
 ;--------------------------------------------------       
 ;Etiqueta de interrupcion
 ;-------------------------------------------------- 
 BOTON   CALL #T30ms
         BIT.B #BIT7,&P1IN
         JNZ CASA 
-        CMP.B #5,x
+        CMP.B #4,x
         JHS CERO
         INC.B x
 CASA    BIC.B #BIT7,&P1IFG
@@ -137,24 +89,14 @@ CERO    CLR.B x
 ;-------------------------------------------------- 
 ;Rutinas de Tiempo     
 ;--------------------------------------------------     
-Tp5ms   MOV #100,R5
+Tp5ms  MOV #1000,R5
 RUT1    DEC R5
         NOP
         NOP
         JNZ RUT1
         RET
         
-T1ms    CALL #Tp5ms
-        CALL #Tp5ms
-        RET
-        
-T5ms    CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
-        CALL #T1ms
-        RET 
-        
-T30ms   MOV #6000,R6
+T30ms   MOV #6000,R6 ;Rutina DEDICADA EXCLUSIVAMENTE para el boton
 RUT2    DEC R6
         NOP
         NOP
