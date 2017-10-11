@@ -1,0 +1,170 @@
+;-------------------------------------------------- 
+;Controlar Servomotor a 
+;gbrayhan@gmail.com
+
+;-------------------------------------------------- 
+#include "msp430g2553.h"
+#define x R4
+;-------------------------------------------------- 
+        NAME main
+        PUBLIC main  
+        ORG 0F800h
+
+RESET   MOV #0240h,SP
+main:   MOV.W #WDTPW+WDTHOLD,&WDTCTL
+
+        MOV.B &CALBC1_1MHZ,&BCSCTL1
+        MOV.B &CALDCO_1MHZ,&DCOCTL
+;--------------------------------------------------     
+P1BIOS  CLR.B &P1SEL
+        MOV.B #07Fh,P1DIR
+        MOV.B #BIT7,&P1OUT
+        MOV.B #BIT7,&P1REN
+        MOV.B #BIT7,&P1IES
+        CLR.B &P1IFG
+        MOV.B #BIT7,&P1IE
+;--------------------------------------------------        
+P2BIOS  CLR.B &P2SEL
+        MOV.B #0FFh,&P2DIR
+        CLR.B &P2OUT
+;--------------------------------------------------                
+        CLR.B x
+        MOV.B #GIE,SR
+;--------------------------------------------------            
+Compar  CMP.B #0,x
+        JEQ Apaga
+        
+        CMP.B #1,x
+        JEQ MN90G
+        
+        CMP.B #2,x
+        JEQ MN45G
+        
+        CMP.B #3,x
+        JEQ M0G
+        
+        CMP.B #4,x
+        JEQ M45G
+        
+        CMP.B #5,x
+        JEQ M90G
+        
+        BIS.B #BIT6,&P1OUT; x=6
+        JMP Compar
+;-------------------------------------------------- 
+Apaga   BIC.B #BIT6,&P1OUT
+        JMP Compar
+;--------------------------------------------------         
+MN90G   BIS.B #BIT6,&P1OUT
+        CALL #Tp5ms
+        BIC.B #BIT6,&P1OUT
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #Tp5ms
+        JMP Compar
+;--------------------------------------------------        
+MN45G  BIS.B #BIT6,&P1OUT
+        CALL #T1ms
+        BIC.B #BIT6,&P1OUT
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms            
+        JMP Compar        
+;-------------------------------------------------- 
+M0G   BIS.B #BIT6,&P1OUT
+        CALL #T1ms
+        CALL #Tp5ms
+        BIC.B #BIT6,&P1OUT
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #Tp5ms
+        JMP Compar         
+;--------------------------------------------------
+M45G    BIS.B #BIT6,&P1OUT
+        CALL #T1ms
+        CALL #T1ms
+        BIC.B #BIT6,&P1OUT
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        JMP Compar         
+;--------------------------------------------------       
+M90G    BIS.B #BIT6,&P1OUT
+        CALL #T1ms
+        CALL #T1ms
+        CALL #Tp5ms
+        BIC.B #BIT6,&P1OUT
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T5ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #Tp5ms
+        JMP Compar         
+;--------------------------------------------------       
+;Etiqueta de interrupcion
+;-------------------------------------------------- 
+BOTON   CALL #T30ms
+        BIT.B #BIT7,&P1IN
+        JNZ CASA 
+        CMP.B #5,x
+        JHS CERO
+        INC.B x
+CASA    BIC.B #BIT7,&P1IFG
+        RETI
+        
+CERO    CLR.B x
+        JMP CASA
+
+;-------------------------------------------------- 
+;Rutinas de Tiempo     
+;--------------------------------------------------     
+Tp5ms   MOV #100,R5
+RUT1    DEC R5
+        NOP
+        NOP
+        JNZ RUT1
+        RET
+        
+T1ms    CALL #Tp5ms
+        CALL #Tp5ms
+        RET
+        
+T5ms    CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        CALL #T1ms
+        RET 
+        
+T30ms   MOV #6000,R6
+RUT2    DEC R6
+        NOP
+        NOP
+        JNZ RUT2
+        RET        
+;--------------------------------------------------         
+        ORG 0FFFEh
+        DW RESET
+	ORG 0FFE4H
+	DW BOTON  
+   
+        END main
+        END
