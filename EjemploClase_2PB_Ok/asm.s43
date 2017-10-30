@@ -1,13 +1,21 @@
-#include "msp430g2131.h"                     ; #define controlled include file
+;Control del LED con dos botones de encendido y apagado
+;Brayhan Gabriel
+;gbrayhan@gmail.com
+;----------------------------------------------------------------------
 
-        NAME    main                    ; module name
 
-        PUBLIC  main                    ; make the main label vissible
-                                    
+#include "msp430g2553.h" ;Definir la libreria del microcontrolador
+
+        NAME    main ;Nombre del modulo
+        PUBLIC  main ;Hacer la etiqueta de modulo principal visible
         ORG     0F800h
-RESET   MOV     #0240h, SP        ; set up stack
 
-main:	MOV.W   #WDTPW+WDTHOLD,&WDTCTL  ; Stop watchdog timer
+
+RESET   MOV #0240h,SP ;set up stack
+
+main:   MOV.W   #WDTPW+WDTHOLD,&WDTCTL ;Stop watchdog timer
+     
+        
 ;----------------------------------------------------------------------
         MOV.B   &CALBC1_1MHZ,&BCSCTL1
         MOV.B   &CALDCO_1MHZ,&DCOCTL 
@@ -34,12 +42,15 @@ BOTON   CALL #T30ms
         JNZ APAG
         CLR.B &P1IFG
         RETI
+
 ENCE    BIS.B #BIT2,&P1OUT
         BIC.B #BIT0,&P1IFG
         RETI
 APAG    BIC.B #BIT2,&P1OUT
         BIC.B #BIT1,&P1IFG
-        RETI        
+        RETI  
+        
+;----------------------------------------------------------------------        
 T30ms   MOV #7500,R4
 OTRO    DEC R4
         NOP
@@ -48,9 +59,10 @@ OTRO    DEC R4
         
         ORG 0FFFEh
         DW RESET
+       
 	ORG 0FFE4H
 	DW BOTON  
-   
+        
 	END main
         END
         

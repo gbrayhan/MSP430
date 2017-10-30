@@ -2,7 +2,7 @@
 #                                                                              #
 #      IAR Universal Linker V6.5.0.91                                          #
 #                                                                              #
-#           Link time     =  11/Oct/2017  13:57:14                             #
+#           Link time     =  30/Oct/2017  13:09:49                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  "C:\Users\Alex\Documents\IAR Workbench\PWMServoMo #
 #                            tor\Debug\List\PWMServoMotor.map"                 #
@@ -13,7 +13,7 @@
 #                            tor\Debug\Exe\PWMServoMotor.dbg"                  #
 #                            Format: ubrof8                                    #
 #                            UBROF version 8.0.2                               #
-#           Command line  =  -f C:\Users\Alex\AppData\Local\Temp\EW2B9B.tmp    #
+#           Command line  =  -f C:\Users\Alex\AppData\Local\Temp\EW8C32.tmp    #
 #                            ("C:\Users\Alex\Documents\IAR Workbench\PWMServoM #
 #                            otor\Debug\Obj\asm.r43"                           #
 #                            -o                                                #

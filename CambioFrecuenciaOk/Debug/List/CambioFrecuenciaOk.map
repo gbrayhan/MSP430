@@ -2,7 +2,7 @@
 #                                                                              #
 #      IAR Universal Linker V6.5.0.91                                          #
 #                                                                              #
-#           Link time     =  09/Oct/2017  13:42:35                             #
+#           Link time     =  30/Oct/2017  12:29:08                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  "C:\Users\Alex\Documents\IAR Workbench\CambioFrec #
 #                            uenciaOk\Debug\List\CambioFrecuenciaOk.map"       #
@@ -13,7 +13,7 @@
 #                            uenciaOk\Debug\Exe\CambioFrecuenciaOk.dbg"        #
 #                            Format: ubrof8                                    #
 #                            UBROF version 8.0.2                               #
-#           Command line  =  -f C:\Users\Alex\AppData\Local\Temp\EW3383.tmp    #
+#           Command line  =  -f C:\Users\Alex\AppData\Local\Temp\EW4D17.tmp    #
 #                            ("C:\Users\Alex\Documents\IAR Workbench\CambioFre #
 #                            cuenciaOk\Debug\Obj\asm.r43"                      #
 #                            -o                                                #

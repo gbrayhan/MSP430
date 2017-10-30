@@ -6,13 +6,12 @@
         <name>Debug</name>
         <outputs>
             <file>$PROJ_DIR$\asm.s43</file>
-            <file>$PROJ_DIR$\Debug\Exe\EjemploClase_2PB_Ok.d43</file>
+            <file>$TOOLKIT_DIR$\inc\msp430g2553.h</file>
             <file>$PROJ_DIR$\Debug\Obj\asm.r43</file>
-            <file>$TOOLKIT_DIR$\inc\msp430g2131.h</file>
             <file>$PROJ_DIR$\Debug\List\EjemploClase_2PB_Ok..map</file>
-            <file>$PROJ_DIR$\Debug\Exe\EjemploClase_2PB_Ok.dbg</file>
             <file>$TOOLKIT_DIR$\config\linker\lnk430g2553.xcl</file>
             <file>$PROJ_DIR$\Debug\Exe\EjemploClase_2PB_Ok..hex</file>
+            <file>$PROJ_DIR$\Debug\Exe\EjemploClase_2PB_Ok.dbg</file>
         </outputs>
         <file>
             <name>$PROJ_DIR$\asm.s43</name>
@@ -25,7 +24,7 @@
             <inputs>
                 <tool>
                     <name>A430</name>
-                    <file> 3</file>
+                    <file> 1</file>
                 </tool>
             </inputs>
         </file>
@@ -34,13 +33,13 @@
             <outputs>
                 <tool>
                     <name>XLINK</name>
-                    <file> 4 5</file>
+                    <file> 3 6</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>XLINK</name>
-                    <file> 6 2</file>
+                    <file> 4 2</file>
                 </tool>
             </inputs>
         </file>
@@ -49,7 +48,7 @@
             <outputs>
                 <tool>
                     <name>XLINK</name>
-                    <file> 7 4 5</file>
+                    <file> 5 3 6</file>
                 </tool>
             </outputs>
         </file>

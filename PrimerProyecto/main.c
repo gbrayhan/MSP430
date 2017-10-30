@@ -1,3 +1,7 @@
+//Parpadeo de led en lenguaje C
+//Brayhan Gabriel
+//gbrayhan@gmail.com
+
 
 #include "msp430g2553.h"
 

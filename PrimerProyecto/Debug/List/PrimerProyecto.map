@@ -2,7 +2,7 @@
 #                                                                              #
 #      IAR Universal Linker V6.5.0.91                                          #
 #                                                                              #
-#           Link time     =  30/Sep/2017  13:15:06                             #
+#           Link time     =  30/Oct/2017  12:51:52                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  "C:\Users\Alex\Documents\IAR Workbench\PrimerProy #
 #                            ecto\Debug\List\PrimerProyecto.map"               #
@@ -11,9 +11,9 @@
 #                            Format: intel-standard                            #
 #           Output file 2 =  "C:\Users\Alex\Documents\IAR Workbench\PrimerProy #
 #                            ecto\Debug\Exe\PrimerProyecto.dbg"                #
-#                            Format: ubrof9                                    #
-#                            UBROF version 9.1.2                               #
-#           Command line  =  -f C:\Users\Alex\AppData\Local\Temp\EW691E.tmp    #
+#                            Format: ubrof8                                    #
+#                            UBROF version 8.0.2                               #
+#           Command line  =  -f C:\Users\Alex\AppData\Local\Temp\EW1E3E.tmp    #
 #                            ("C:\Users\Alex\Documents\IAR Workbench\PrimerPro #
 #                            yecto\Debug\Obj\main.r43"                         #
 #                            -o                                                #
@@ -49,7 +49,7 @@
 #                            bench 8.0\430\lib\dlib\dl430fn.r43"               #
 #                            -e_PrintfLarge=_Printf -e_ScanfLarge=_Scanf       #
 #                            -D_DATA16_HEAP_SIZE=50                            #
-#                            "-Oubrof9=C:\Users\Alex\Documents\IAR Workbench\P #
+#                            "-Oubrof8=C:\Users\Alex\Documents\IAR Workbench\P #
 #                            rimerProyecto\Debug\Exe\PrimerProyecto.dbg"       #
 #                            -s __program_start -D_DATA20_HEAP_SIZE=50)        #
 #                                                                              #

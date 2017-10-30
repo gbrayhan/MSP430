@@ -1,3 +1,7 @@
+;Cambio de frecuencia de LED (5Hz, 10Hz y 20Hz) 
+;Brayhan Gabriel
+;gbrayhan@gmail.com
+
 #include "msp430g2553.h"
 #define x R4
 ;-------------------------------------------------- 

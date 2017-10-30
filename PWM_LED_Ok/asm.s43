@@ -1,0 +1,114 @@
+;-------------------------------------------------- 
+;Controlar Brillo de LED con PWM
+;Brayhan Gabriel
+;gbrayhan@gmail.com
+;-------------------------------------------------- 
+#include "msp430g2553.h"
+#define x R4
+;-------------------------------------------------- 
+        NAME main
+        PUBLIC main  
+        ORG 0F800h
+
+RESET   MOV #0240h,SP
+main:   MOV.W #WDTPW+WDTHOLD,&WDTCTL
+
+        MOV.B &CALBC1_1MHZ,&BCSCTL1
+        MOV.B &CALDCO_1MHZ,&DCOCTL
+;--------------------------------------------------     
+P1BIOS  CLR.B &P1SEL
+        MOV.B #0F7h,P1DIR ;Habilitar P1.3 como entrada(0) y las demas como salidas(1)
+        MOV.B #08h,&P1REN ;Habilitar  Resistencia en P1.3
+        MOV.B #08h,&P1OUT ;Habilitar Entrada con Pull Up Resistor P1.3  
+        MOV.B #08h,&P1IE ;Boton Abilitando interrupciones  
+        MOV.B #08h,&P1IES ;P1IFG is set Low (0) to High (1) transition
+        CLR.B &P1IFG
+       
+;--------------------------------------------------        
+P2BIOS  CLR.B &P2SEL
+        MOV.B #0FFh,&P2DIR
+        CLR.B &P2OUT
+;--------------------------------------------------                
+        CLR.B x
+        MOV.B #GIE,SR
+;--------------------------------------------------            
+Compar  CMP.B #0,x
+        JEQ Apaga
+        
+        CMP.B #1,x
+        JEQ T25P
+        
+        CMP.B #2,x
+        JEQ T50P
+        
+        CMP.B #3,x
+        JEQ T75P
+               
+        BIS.B #BIT0,&P1OUT; x=4 100% del brillo
+        JMP Compar
+;-------------------------------------------------- 
+Apaga   BIC.B #BIT0,&P1OUT ; 0% del Brillo del Led (Apagado) 
+        JMP Compar
+;--------------------------------------------------         
+T25P    BIS.B #BIT0,&P1OUT
+        CALL #Tp5ms
+        BIC.B #BIT0,&P1OUT
+        CALL #Tp5ms
+        CALL #Tp5ms
+        CALL #Tp5ms
+        JMP Compar
+;--------------------------------------------------        
+T50P    BIS.B #BIT0,&P1OUT
+        CALL #Tp5ms
+        CALL #Tp5ms
+        BIC.B #BIT0,&P1OUT
+        CALL #Tp5ms
+        CALL #Tp5ms
+        JMP Compar        
+;-------------------------------------------------- 
+T75P    BIS.B #BIT0,&P1OUT
+        CALL #Tp5ms
+        CALL #Tp5ms
+        CALL #Tp5ms
+        BIC.B #BIT0,&P1OUT
+        CALL #Tp5ms
+        JMP Compar              
+;--------------------------------------------------       
+;Etiqueta de interrupcion
+;-------------------------------------------------- 
+BOTON   CALL #T30ms
+        BIT.B #BIT3,&P1IN
+        JNZ CASA 
+        CMP.B #4,x
+        JHS CERO
+        INC.B x
+CASA    BIC.B #BIT3,&P1IFG
+        RETI
+        
+CERO    CLR.B x
+        JMP CASA
+
+;-------------------------------------------------- 
+;Rutinas de Tiempo     
+;--------------------------------------------------     
+Tp5ms  MOV #1000,R5
+RUT1    DEC R5
+        NOP
+        NOP
+        JNZ RUT1
+        RET
+        
+T30ms   MOV #6000,R6 ;Rutina DEDICADA EXCLUSIVAMENTE para el boton
+RUT2    DEC R6
+        NOP
+        NOP
+        JNZ RUT2
+        RET        
+;--------------------------------------------------         
+        ORG 0FFFEh
+        DW RESET
+	ORG 0FFE4H
+	DW BOTON  
+   
+        END main
+        END
