@@ -5,22 +5,28 @@
     <configuration>
         <name>Debug</name>
         <outputs>
-            <file>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.d43</file>
-            <file>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.dbg</file>
-            <file>$PROJ_DIR$\Debug\Obj\asm.r43</file>
-            <file>$PROJ_DIR$\asm.s43</file>
-            <file>$TOOLKIT_DIR$\inc\msp430g2553.h</file>
-            <file>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.a43</file>
-            <file>$TOOLKIT_DIR$\config\linker\lnk430g2553.xcl</file>
             <file>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.hex</file>
             <file>$PROJ_DIR$\Debug\List\CambioFrecuenciaOk.map</file>
+            <file>$PROJ_DIR$\asm.s43</file>
+            <file>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.d43</file>
+            <file>$PROJ_DIR$\Debug\Obj\asm.r43</file>
+            <file>$TOOLKIT_DIR$\inc\msp430g2553.h</file>
+            <file>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.dbg</file>
+            <file>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.a43</file>
+            <file>$TOOLKIT_DIR$\config\linker\lnk430g2553.xcl</file>
         </outputs>
         <file>
-            <name>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.d43</name>
+            <name>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.hex</name>
+            <outputs>
+                <tool>
+                    <name>XLINK</name>
+                    <file> 1 6</file>
+                </tool>
+            </outputs>
             <inputs>
                 <tool>
                     <name>XLINK</name>
-                    <file> 6 2</file>
+                    <file> 8 4</file>
                 </tool>
             </inputs>
         </file>
@@ -29,7 +35,7 @@
             <outputs>
                 <tool>
                     <name>XLINK</name>
-                    <file> 7 8 1</file>
+                    <file> 0 1 6</file>
                 </tool>
             </outputs>
         </file>
@@ -38,13 +44,22 @@
             <outputs>
                 <tool>
                     <name>A430</name>
-                    <file> 2</file>
+                    <file> 4</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>A430</name>
-                    <file> 4</file>
+                    <file> 5</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.d43</name>
+            <inputs>
+                <tool>
+                    <name>XLINK</name>
+                    <file> 8 4</file>
                 </tool>
             </inputs>
         </file>
@@ -53,22 +68,7 @@
             <inputs>
                 <tool>
                     <name>XLINK</name>
-                    <file> 6 2</file>
-                </tool>
-            </inputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\Debug\Exe\CambioFrecuenciaOk.hex</name>
-            <outputs>
-                <tool>
-                    <name>XLINK</name>
-                    <file> 8 1</file>
-                </tool>
-            </outputs>
-            <inputs>
-                <tool>
-                    <name>XLINK</name>
-                    <file> 6 2</file>
+                    <file> 8 4</file>
                 </tool>
             </inputs>
         </file>

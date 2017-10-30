@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <fileVersion>2</fileVersion>
-    <fileChecksum>1312699308</fileChecksum>
+    <fileChecksum>219504709</fileChecksum>
     <configuration>
         <name>Debug</name>
         <outputs>
-            <file>$PROJ_DIR$\Debug\Exe\ContInternoMSP430.d43</file>
+            <file>$PROJ_DIR$\asm.s43</file>
             <file>$PROJ_DIR$\Debug\Obj\asm.r43</file>
             <file>$PROJ_DIR$\Debug\Exe\ContInternoMSP430.hex</file>
-            <file>$PROJ_DIR$\asm.s43</file>
+            <file>$PROJ_DIR$\Debug\Exe\ContInternoMSP430.d43</file>
         </outputs>
         <file>
             <name>[ROOT_NODE]</name>
             <outputs>
                 <tool>
                     <name>XLINK</name>
-                    <file> 0 2</file>
+                    <file> 3 2</file>
                 </tool>
             </outputs>
         </file>
@@ -42,6 +42,9 @@
         <forcedrebuild>
             <name>[MULTI_TOOL]</name>
             <tool>XLINK</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>[REBUILD_ALL]</name>
         </forcedrebuild>
     </configuration>
 </project>
